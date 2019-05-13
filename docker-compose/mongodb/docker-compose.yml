@@ -1,0 +1,63 @@
+version: '3'
+services:
+  proto_ru:
+#    image: quintor/studybitsprototype:latest
+    build: ../..
+    ports:
+      - 8080:8080
+    environment:
+      spring.data.mongodb.host: mongo_ru
+    depends_on:
+      - mongo_ru
+    networks:
+      - prototypes
+
+  proto_gent:
+#    image: quintor/studybitsprototype:latest
+    build: ../..
+    ports:
+      - 8081:8080
+    environment:
+      spring.data.mongodb.host: mongo_gent
+    depends_on:
+      - mongo_gent
+    networks:
+      - prototypes
+
+  mongo_ru:
+      image: mongo
+      ports:
+        - 27017:27017
+  #    environment:
+  #          MONGO_INITDB_ROOT_USERNAME: root
+  #          MONGO_INITDB_ROOT_PASSWORD: example
+      networks:
+        - prototypes
+
+  mongo_gent:
+      image: mongo
+      ports:
+        - 27018:27017
+      networks:
+        - prototypes
+
+#  mongo_config:
+#      image: mongo
+#      command: ["mongod", "--configsvr"]
+#      ports:
+#        - 27019:27019
+#      networks:
+#        - prototypes
+#
+#  mongo_router:
+#      image: mongo
+#      command: ["mongos", "–-configdb", "config/mongo_config:27019"]
+#      ports:
+#        - 27020:27017
+#      networks:
+#        - prototypes
+
+networks:
+  prototypes:
+    driver: bridge
+

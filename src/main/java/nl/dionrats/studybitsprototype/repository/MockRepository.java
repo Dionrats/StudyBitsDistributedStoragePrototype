@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 
 @Slf4j
-@Repository
+@Repository("Mock")
 public class MockRepository implements IRepository {
 
     private HashMap<String, Document> documents;

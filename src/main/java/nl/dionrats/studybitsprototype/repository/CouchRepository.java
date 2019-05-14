@@ -8,22 +8,27 @@ import lombok.extern.slf4j.Slf4j;
 import nl.dionrats.studybitsprototype.adapters.DocumentAdapter;
 import nl.dionrats.studybitsprototype.entity.Document;
 import nl.dionrats.studybitsprototype.entity.CouchDocument;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 
 @Slf4j
-@Repository("couchdb")
+@Component("couchdb")
 public class CouchRepository implements IRepository {
 
-    private static final String CONNECTIONSTRING = "http://127.0.0.1:5984/transcripts/";
+    private String connectionstring;
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
 
-    public CouchRepository() {
+    @Autowired
+    public CouchRepository(Environment env) {
         log.debug("======== Using Couch Repository ======");
+        String host = env.getProperty("PROVIDER_HOST");
+        connectionstring = host + "/transcripts/";
+        log.debug("HOST: {}", connectionstring);
         initObjectMapper();
         initDatabase();
 
@@ -33,7 +38,7 @@ public class CouchRepository implements IRepository {
     @Override
     public Document getFile(String key) {
         try {
-            return DocumentAdapter.toDocument(Unirest.get(CONNECTIONSTRING + key).asObject(CouchDocument.class).getBody());
+            return DocumentAdapter.toDocument(Unirest.get(connectionstring + key).asObject(CouchDocument.class).getBody());
         } catch (UnirestException e) {
             log.error(e.getMessage());
         }
@@ -43,7 +48,7 @@ public class CouchRepository implements IRepository {
     @Override
     public void storeFile(String key, Document document) {
         try {
-            Unirest.put(CONNECTIONSTRING + key).body(document).asJson();
+            Unirest.put(connectionstring + key).body(document).asJson();
         } catch (UnirestException e) {
             log.error(e.getMessage());
         }
@@ -51,7 +56,7 @@ public class CouchRepository implements IRepository {
 
     private void initDatabase() {
         try {
-            log.debug("DB: {}", Unirest.put(CONNECTIONSTRING)
+            log.debug("DB: {}", Unirest.put(connectionstring)
                     .basicAuth(USERNAME, PASSWORD)
                     .asJson()
                     .getBody());

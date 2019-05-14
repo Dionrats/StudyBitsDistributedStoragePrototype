@@ -1,0 +1,57 @@
+version: '3'
+services:
+  proto_ru:
+    build: ../..
+    ports:
+      - 8080:8080
+    environment:
+      PROVIDER_HOST: http://couchdb_ru
+      PROVIDER_PORT: 5985
+#    depends_on:
+#      - couchdb_ru
+    networks:
+      - prototypes
+
+  proto_gent:
+      build: ../..
+      ports:
+        - 8081:8080
+      environment:
+        PROVIDER_HOST: couchdb_gent
+        PROVIDER_PORT: 5984
+#      depends_on:
+#        - couchdb_gent
+      networks:
+        - prototypes
+
+#  couchdb_ru:
+#    image: klaemo/couchdb:2.0.0
+#    restart: always
+#    ports:
+#      - 5984:5894
+#    volumes:
+#          - couchdb-data-volume:/usr/local/var/lib/couchdb
+##      - 5986:5986
+##      - 4369:4369
+#    environment:
+#      COUCHDB_USER: root
+#      COUCHDB_PASSWORD: root
+#    networks:
+#      - prototypes
+#
+#  couchdb_gent:
+#      image: couchdb:latest
+#      ports:
+#        - 5985:5894
+#      environment:
+#        COUCHDB_USER: root
+#        COUCHDB_PASSWORD: root
+#      networks:
+#        - prototypes
+
+#networks:
+#  prototypes:
+#    driver: bridge
+
+volumes:
+  couchdb-data-volume:

@@ -32,7 +32,7 @@ public class MongoRepository implements IRepository {
 
     @Override
     public void storeFile(String key, Document document) {
-        collection.insert(DocumentAdapter.toDBObject(key, document));
+        collection.insert(DocumentAdapter.toMongoDBObject(key, document));
     }
 
 

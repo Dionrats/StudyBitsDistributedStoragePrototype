@@ -22,7 +22,7 @@ public class FileService {
 
     //TODO take qualifier from properties
     @Autowired
-    public FileService(@Qualifier("mongodb") IRepository repository) {
+    public FileService(@Qualifier("couchdb") IRepository repository) {
         this.repository = repository;
         nameGenerator = new RandomNameGenerator(new Random().nextInt());
     }

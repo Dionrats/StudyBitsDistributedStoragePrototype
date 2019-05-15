@@ -31,8 +31,6 @@ public class CouchRepository implements IRepository {
         log.debug("HOST: {}", connectionstring);
         initObjectMapper();
         initDatabase();
-
-        //create redundantie?
     }
 
     @Override
@@ -46,12 +44,14 @@ public class CouchRepository implements IRepository {
     }
 
     @Override
-    public void storeFile(String key, Document document) {
+    public String storeFile(String key, Document document) {
         try {
             Unirest.put(connectionstring + key).body(document).asJson();
         } catch (UnirestException e) {
             log.error(e.getMessage());
         }
+
+        return key;
     }
 
     private void initDatabase() {

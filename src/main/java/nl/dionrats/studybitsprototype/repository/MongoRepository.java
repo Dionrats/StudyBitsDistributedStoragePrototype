@@ -31,8 +31,10 @@ public class MongoRepository implements IRepository {
     }
 
     @Override
-    public void storeFile(String key, Document document) {
+    public String storeFile(String key, Document document) {
         collection.insert(DocumentAdapter.toMongoDBObject(key, document));
+
+        return key;
     }
 
 

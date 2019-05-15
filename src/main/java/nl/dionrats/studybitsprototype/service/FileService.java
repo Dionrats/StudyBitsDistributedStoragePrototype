@@ -22,7 +22,7 @@ public class FileService {
 
     //TODO take qualifier from properties
     @Autowired
-    public FileService(@Qualifier("couchdb") IRepository repository) {
+    public FileService(@Qualifier("IPFS") IRepository repository) {
         this.repository = repository;
         nameGenerator = new RandomNameGenerator(new Random().nextInt());
     }
@@ -31,9 +31,8 @@ public class FileService {
     public String processFile(DocumentDTO dto) throws IOException {
         String key = nameGenerator.next();
         Document document = DocumentAdapter.toDocument(dto);
-        repository.storeFile(key, document);
 
-        return key;
+        return repository.storeFile(key, document);
     }
 
     public Document retrieveFile(String id) {

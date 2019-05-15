@@ -21,9 +21,11 @@ public class MockRepository implements IRepository {
         return documents.get(key);
     }
 
-    public void storeFile(String key, Document document) {
+    public String storeFile(String key, Document document) {
         log.debug("Storing file {} with key {}", document.getName(), key);
         documents.put(key, document);
+
+        return key;
     }
 
 }

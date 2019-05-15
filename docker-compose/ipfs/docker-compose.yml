@@ -1,0 +1,45 @@
+version: '3'
+services:
+  proto_rug:
+    build: ../..
+    ports:
+      - 8080:8080
+    environment:
+#      IPFS.node: /ip4/ipfs_ru/tcp/5001
+        IPFS.node.host: ipfs_rug
+        IPFS.node.port: 5001
+    depends_on:
+      - ipfs_rug
+    networks:
+      - prototypes
+
+  proto_gent:
+      build: ../..
+      ports:
+        - 8081:8080
+      environment:
+#        IPFS.node: /ip4/ipfs_gent/tcp/5002
+        IPFS.node.host: ipfs_gent
+        IPFS.node.port: 5001
+      depends_on:
+        - ipfs_gent
+      networks:
+        - prototypes
+
+  ipfs_rug:
+    image: ipfs/go-ipfs
+    ports:
+      - 5001:5001
+    networks:
+      - prototypes
+
+  ipfs_gent:
+      image: ipfs/go-ipfs
+      ports:
+        - 5002:5001
+      networks:
+        - prototypes
+
+networks:
+  prototypes:
+    driver: bridge

@@ -4,5 +4,5 @@ import nl.dionrats.studybitsprototype.entity.Document;
 
 public interface IRepository {
     Document getFile(String key);
-    void storeFile(String key, Document document);
+    String storeFile(String key, Document document);
 }

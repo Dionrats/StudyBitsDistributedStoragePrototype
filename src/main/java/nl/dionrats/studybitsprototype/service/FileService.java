@@ -7,6 +7,7 @@ import nl.dionrats.studybitsprototype.entity.DocumentDTO;
 import org.kohsuke.randname.RandomNameGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import nl.dionrats.studybitsprototype.repository.IRepository;
 
@@ -20,9 +21,8 @@ public class FileService {
     private final IRepository repository;
     private final RandomNameGenerator nameGenerator;
 
-    //TODO take qualifier from properties
     @Autowired
-    public FileService(@Qualifier("HDFS") IRepository repository) {
+    public FileService(@Qualifier("Voldemort") IRepository repository) {
         this.repository = repository;
         nameGenerator = new RandomNameGenerator(new Random().nextInt());
     }

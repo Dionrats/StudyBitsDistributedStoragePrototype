@@ -104,6 +104,32 @@
             <artifactId>hadoop-client</artifactId>
             <version>3.2.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.linkedin</groupId>
+            <artifactId>voldemort</artifactId>
+            <version>1.10.26</version>
+        </dependency>
+        <dependency>
+            <groupId>com.linkedin</groupId>
+            <artifactId>voldemort.deps</artifactId>
+            <version>1.10.26</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.tehuti</groupId>
+            <artifactId>tehuti</artifactId>
+            <version>0.7.3</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>jdom</groupId>
+            <artifactId>jdom</artifactId>
+            <version>1.1</version>
+        </dependency>
 
 
     </dependencies>

@@ -10,6 +10,7 @@ import voldemort.client.SocketStoreClientFactory;
 import voldemort.client.StoreClient;
 import voldemort.client.StoreClientFactory;
 
+
 @Slf4j
 @Repository("Voldemort")
 public class VoldemortRepository implements IRepository{
@@ -35,4 +36,5 @@ public class VoldemortRepository implements IRepository{
         client.put(key, document);
         return key;
     }
+
 }

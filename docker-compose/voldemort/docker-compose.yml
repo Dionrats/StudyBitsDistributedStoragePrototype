@@ -1,0 +1,44 @@
+version: '3'
+services:
+  proto_rug:
+      build: ../..
+      ports:
+        - 8080:8080
+      environment:
+        voldemort.host: voldemortrug
+        voldemort.port: 6666
+      depends_on:
+        - voldemortrug
+      networks:
+        - prototypes
+
+  proto_gent:
+      build: ../..
+      ports:
+        - 8081:8080
+      environment:
+        voldemort.host: voldemortgent
+        voldemort.port: 6667
+      depends_on:
+        - voldemortgent
+      networks:
+        - prototypes
+
+  voldemortrug:
+    build: .
+    ports:
+      - 6666:6666
+    networks:
+      - prototypes
+
+  voldemortgent:
+    build: .
+    ports:
+      - 6667:6666
+    networks:
+      - prototypes
+
+networks:
+  prototypes:
+    driver: bridge
+
